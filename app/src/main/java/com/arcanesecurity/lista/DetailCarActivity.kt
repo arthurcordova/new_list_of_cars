@@ -13,9 +13,14 @@ class DetailCarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_car)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
         val car = intent.getSerializableExtra("parametro_carro") as? Car
 
         car?.let { myCar ->
+
+            supportActionBar?.title = "${myCar.marca} - ${myCar.modelo}"
             findViewById<ImageView>(R.id.logoImageView).apply {
                 Glide.with(context)
                     .load(myCar.logo.url)
@@ -31,7 +36,10 @@ class DetailCarActivity : AppCompatActivity() {
                 text = myCar.ano.toString()
             }
         }
+    }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

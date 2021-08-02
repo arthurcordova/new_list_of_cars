@@ -3,6 +3,7 @@ package com.arcanesecurity.lista.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.bumptech.glide.Glide
 
 class AdapterRecyclerView(
     val listOfCars: MutableList<Car>,
-    val onClick: (Car) -> Unit
+    val onClickable: ClickableItem
 ) : RecyclerView.Adapter<ItemCarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCarViewHolder {
@@ -24,7 +25,12 @@ class AdapterRecyclerView(
         listOfCars[position].apply {
             viewHolder.bind(this)
             viewHolder.itemView.setOnClickListener {
-                onClick(this)
+                onClickable.onEdit(this)
+            }
+            viewHolder.itemView.findViewById<Button>(R.id.buttonDelete).let {
+                it.setOnClickListener {
+                    onClickable.onDelete(this)
+                }
             }
         }
     }

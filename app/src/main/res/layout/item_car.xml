@@ -52,6 +52,15 @@
         app:layout_constraintStart_toEndOf="@+id/marcaLogoImageView"
         tools:text="Ano" />
 
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/marcaLogoImageView" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"

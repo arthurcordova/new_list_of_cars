@@ -7,10 +7,11 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arcanesecurity.lista.adapter.AdapterRecyclerView
+import com.arcanesecurity.lista.adapter.ClickableItem
 import com.arcanesecurity.lista.model.Car
 import com.arcanesecurity.lista.model.CarLogoUrl
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ClickableItem {
 
     private lateinit var carRecyclerView: RecyclerView
 
@@ -30,9 +31,7 @@ class MainActivity : AppCompatActivity() {
             Car("VM", "Amarok", 2010, CarLogoUrl.VW),
         )
 
-        val adapter = AdapterRecyclerView(listOfCars) {
-            onClickItemCar(it)
-        }
+        val adapter = AdapterRecyclerView(listOfCars, this)
 
         carRecyclerView = findViewById(R.id.carsRecyclerView)
         carRecyclerView.layoutManager =
@@ -40,12 +39,6 @@ class MainActivity : AppCompatActivity() {
         carRecyclerView.adapter = adapter
     }
 
-
-    fun onClickItemCar(car: Car) {
-        val intentParaDetalhesDoCarro = Intent(this, DetailCarActivity::class.java)
-        intentParaDetalhesDoCarro.putExtra("parametro_carro", car)
-        startActivity(intentParaDetalhesDoCarro)
-    }
 
     fun onClickAddNewCar() {
         if (carRecyclerView.adapter is AdapterRecyclerView) {
@@ -58,6 +51,18 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+
+    override fun onDelete(car: Car) {
+        if (carRecyclerView.adapter is AdapterRecyclerView) {
+            (carRecyclerView.adapter as AdapterRecyclerView).removeAt(car)
+        }
+    }
+
+    override fun onEdit(car: Car) {
+        val intentParaDetalhesDoCarro = Intent(this, DetailCarActivity::class.java)
+        intentParaDetalhesDoCarro.putExtra("parametro_carro", car)
+        startActivity(intentParaDetalhesDoCarro)
     }
 
 
