@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arcanesecurity.lista.adapter.AdapterRecyclerView
 import com.arcanesecurity.lista.model.Car
+import com.arcanesecurity.lista.model.CarLogoUrl
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,12 +18,12 @@ class MainActivity : AppCompatActivity() {
 
 
         val listOfCars = listOf(
-            Car("Chevrolet", "Celta", 2012),
-            Car("Chevrolet", "S10", 2020),
-            Car("Fiat", "Palio", 2018),
-            Car("Fiat", "Strada", 2010),
-            Car("VW", "Gol", 2010),
-            Car("VM", "Amarok", 2010),
+            Car("Chevrolet", "Celta", 2012, CarLogoUrl.CHEVROLET),
+            Car("Chevrolet", "S10", 2020, CarLogoUrl.CHEVROLET),
+            Car("Fiat", "Palio", 2018, CarLogoUrl.FIAT),
+            Car("Fiat", "Strada", 2010, CarLogoUrl.FIAT),
+            Car("VW", "Gol", 2010, CarLogoUrl.VW),
+            Car("VM", "Amarok", 2010, CarLogoUrl.VW),
         )
 
         carRecyclerView = findViewById(R.id.carsRecyclerView)
