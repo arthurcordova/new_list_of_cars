@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Lista</string>
+    <string name="add_new_car">Add new car</string>
 </resources>

@@ -11,7 +11,8 @@ import com.arcanesecurity.lista.model.Car
 import com.bumptech.glide.Glide
 
 class AdapterRecyclerView(
-    val listOfCars: List<Car>
+    val listOfCars: MutableList<Car>,
+    val onClick: (Car) -> Unit
 ) : RecyclerView.Adapter<ItemCarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCarViewHolder {
@@ -22,14 +23,27 @@ class AdapterRecyclerView(
     override fun onBindViewHolder(viewHolder: ItemCarViewHolder, position: Int) {
         listOfCars[position].apply {
             viewHolder.bind(this)
+            viewHolder.itemView.setOnClickListener {
+                onClick(this)
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return listOfCars.size
     }
-}
 
+    fun removeAt(car: Car) {
+        listOfCars.remove(car)
+        notifyDataSetChanged()
+    }
+
+    fun add(car: Car) {
+        listOfCars.add(car)
+        notifyDataSetChanged()
+    }
+
+}
 
 class ItemCarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -45,8 +59,8 @@ class ItemCarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
         itemView.findViewById<ImageView>(R.id.marcaLogoImageView).apply {
             Glide.with(context)
-                .load(car.logoUrl.url)
-                .placeholder(R.drawable.ic_baseline_directions_car_24)
+                .load(car.logo.url)
+                .placeholder(car.logo.placeholder)
                 .into(this)
         }
     }
